@@ -1,6 +1,8 @@
 import argparse
 from dataclasses import dataclass
+from operator import truediv
 from pathlib import Path
+from os import path
 
 @dataclass
 class Parameters:
@@ -17,14 +19,47 @@ def parsing_for_parameters(args: argparse.Namespace, parameters:Parameters):
         parameters.file_output_active = True
 
     if args.o is not None:
+        # check if valid and if path or file
+        # separate path and filename
         p = Path(args.o)
-        print(p.is_dir())
+        if p.exists():
+            if p.is_file():
+                head, tail = path.split(p)
+                parameters.path = head
+                parameters.file_name = tail
+            else:
+                parameters.path = str(p)
+        else:
+            head, tail = path.split(p)
+            if Path(head).is_dir():
+                parameters.path = head
+                parameters.file_name = tail
 
     if args.i is not None:
-        print(args.i)
+        if string_is_valid_ip4_address(args.i):
+            parameters.broker_IP = args.i
+        else:
+            print(f"'{args.i}' is no valid IP4-address!")
 
     if args.p is not None and args.p.isnumeric():
-        print(args.p)
+        parameters.broker_port = int(args.p)
 
     if args.t is not None:
-        print(args.t)
+        # no sanity check, handle exception for subscribe-method
+        parameters.topic = args.t
+
+def string_is_valid_ip4_address(string:str):
+    parts = string.split(".")
+
+    if len(parts) != 4:
+        return False
+
+    for octet in parts:
+        if octet.isnumeric():
+            octet = int(octet)
+            if octet <0 or octet>255:
+                return False
+        else:
+            return False
+
+    return True
