@@ -1,9 +1,11 @@
 import paho.mqtt.client as mqtt
 from src.paramters import Parameters
+from time import strftime
 
 
 class MQTT:
     def __init__(self, parameters: Parameters):
+        self.file_output_active = parameters.file_output_active
         self.path = parameters.path
         self.file_name = parameters.file_name
         self.broker_IP = parameters.broker_IP
@@ -21,8 +23,12 @@ class MQTT:
 
     # The callback for when a PUBLISH message is received from the server.
     def on_message(self, client, userdata, msg):
-        print(msg.topic + " " + msg.payload.decode())
-        # more callbacks, etc
+        message = msg.payload.decode()
+        print(msg.topic + " " + message)
+
+        if self.file_output_active:
+            self.file_output(msg.topic, message)
+
 
     # subscribe method
     def subscribe(self):
@@ -31,6 +37,7 @@ class MQTT:
         client.on_message = self.on_message
 
         client.connect(self.broker_IP, self.broker_port, 60, bind_address="0.0.0.0")
+
         print(f"subcribed to topic: {self.topic}")
 
         # Blocking call that processes network traffic, dispatches callbacks and
@@ -38,3 +45,10 @@ class MQTT:
         # Other loop*() functions are available that give a threaded interface and a
         # manual interface.
         client.loop_forever()
+
+    def file_output(self, topic, message):
+        header, tail = self.file_name.split(".")
+        name_logfile = f"{header}_{strftime('%Y%m%d')}.{tail}"
+        path = self.path + "/" + name_logfile
+        with open(path, "a") as file:
+            file.write(f"[{topic}] {message}\n")

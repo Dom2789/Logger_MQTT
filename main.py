@@ -22,8 +22,8 @@ def main():
     print(parameters.__repr__())
 
     # instantiation of MQTT-class and subscribe to topic
-    #mqtt = MQTT(parameters)
-    #mqtt.subscribe()
+    mqtt = MQTT(parameters)
+    mqtt.subscribe()
 
 
 

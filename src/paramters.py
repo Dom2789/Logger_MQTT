@@ -13,7 +13,6 @@ class Parameters:
     broker_port : int
     topic : str
 
-
 def parsing_for_parameters(args: argparse.Namespace, parameters:Parameters):
     if args.x:
         parameters.file_output_active = True
