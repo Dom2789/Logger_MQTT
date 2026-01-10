@@ -1,6 +1,5 @@
 import argparse
 from dataclasses import dataclass
-from operator import truediv
 from pathlib import Path
 from os import path
 

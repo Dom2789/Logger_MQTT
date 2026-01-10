@@ -10,7 +10,7 @@ def main():
 
     # parsing command-line arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("-x", action="store_true")
+    parser.add_argument("-x", action="store_true", help="activate fileoutput")
     parser.add_argument("-o", help= "name or full path of logfile")
     parser.add_argument("-i", help= "IP of MQTT-broker")
     parser.add_argument("-p", help= "port of MQTT-broker")
