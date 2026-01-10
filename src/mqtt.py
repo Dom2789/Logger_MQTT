@@ -24,7 +24,7 @@ class MQTT:
     # The callback for when a PUBLISH message is received from the server.
     def on_message(self, client, userdata, msg):
         message = msg.payload.decode()
-        print(msg.topic + " " + message)
+        print(f"[{msg.topic}] {message}")
 
         if self.file_output_active:
             self.file_output(msg.topic, message)
