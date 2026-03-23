@@ -14,7 +14,7 @@ class MQTT:
 
 
     # The callback for when the client receives a CONNACK response from the server.
-    def on_connect(self, client, userdata, flags, rc):
+    def on_connect(self, client, userdata, flags, rc, properties=None):
         print("Connected with result code " + str(rc))
 
         # Subscribing in on_connect() means that if we lose the connection and
@@ -32,7 +32,7 @@ class MQTT:
 
     # subscribe method
     def subscribe(self):
-        client = mqtt.Client(protocol=mqtt.MQTTv311, transport="tcp")
+        client = mqtt.Client(protocol=mqtt.MQTTv5, transport="tcp")
         client.on_connect = self.on_connect
         client.on_message = self.on_message
 
