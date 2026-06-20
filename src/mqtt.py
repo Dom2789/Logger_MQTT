@@ -1,6 +1,7 @@
 import paho.mqtt.client as mqtt
 from src.paramters import Parameters
 from time import strftime
+import sqlite3 as sql
 
 
 class MQTT:
@@ -11,6 +12,8 @@ class MQTT:
         self.broker_IP = parameters.broker_IP
         self.broker_port = parameters.broker_port
         self.topic = parameters.topic
+        self.user = parameters.user
+        self.password = parameters.password
 
 
     # The callback for when the client receives a CONNACK response from the server.
@@ -35,6 +38,9 @@ class MQTT:
         client = mqtt.Client(protocol=mqtt.MQTTv311, transport="tcp")
         client.on_connect = self.on_connect
         client.on_message = self.on_message
+
+        if self.user is not "":
+            client.username_pw_set(self.user, self.password)
 
         client.connect(self.broker_IP, self.broker_port, 60, bind_address="0.0.0.0")
 

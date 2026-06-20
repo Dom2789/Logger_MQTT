@@ -6,15 +6,18 @@ def main():
     print("Hello from logger-mqtt!")
 
     # default values
-    parameters = Parameters(False, "logs", "logfile.txt", "192.168.178.100", 1884, "climate/office/+")
+    parameters = Parameters(False, False, "logs", "logfile.txt", "192.168.178.103", 1883, "#", "", "")
 
     # parsing command-line arguments
     parser = argparse.ArgumentParser()
     parser.add_argument("-x", action="store_true", help="activate fileoutput")
+    parser.add_argument("-d", action="store_true", help="activate logging to database")
     parser.add_argument("-o", help= "name or full path of logfile")
     parser.add_argument("-i", help= "IP of MQTT-broker")
     parser.add_argument("-p", help= "port of MQTT-broker")
     parser.add_argument("-t", help= "topic to subscribe to")
+    parser.add_argument("-u", help= "username")
+    parser.add_argument("-w", help= "password")
     args = parser.parse_args()
 
     parsing_for_parameters(args, parameters)

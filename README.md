@@ -25,13 +25,15 @@ python main.py [OPTIONS]
 
 All parameters are optional. Defaults are used when not specified.
 
-| Flag | Argument | Default | Description |
-|------|----------|---------|-------------|
-| `-x` | — | off | Enable file output |
-| `-o` | `<path>` | `logs/logfile.txt` | Path or filename for the log file |
-| `-i` | `<ip>` | `192.168.178.100` | IP address of the MQTT broker |
-| `-p` | `<port>` | `1884` | Port of the MQTT broker |
-| `-t` | `<topic>` | `climate/office/+` | Topic to subscribe to |
+| Flag | Argument     | Default | Description                               |
+|------|--------------|----|-------------------------------------------|
+| `-x` | —            | off | Enable file output                        |
+| `-o` | `<path>`     | `logs/logfile.txt` | Path or filename for the log file         |
+| `-i` | `<ip>`       | `192.168.178.100` | IP address of the MQTT broker             |
+| `-p` | `<port>`     | `1884` | Port of the MQTT broker                   |
+| `-t` | `<topic>`    | `climate/office/+` | Topic to subscribe to                     |
+| `-u` | `<user>`     | `` | username if authentification is necessary |
+| `-w` | `<password>` | `` | password if authentification is necessary |
 
 ### Examples
 

@@ -6,15 +6,22 @@ from os import path
 @dataclass
 class Parameters:
     file_output_active: bool
+    database_logging_active: bool
     path : str
     file_name : str
     broker_IP : str
     broker_port : int
     topic : str
+    user: str
+    password: str
+
 
 def parsing_for_parameters(args: argparse.Namespace, parameters:Parameters):
     if args.x:
         parameters.file_output_active = True
+
+    if args.d:
+        parameters.database_logging_active = True
 
     if args.o is not None:
         # check if valid and if path or file
@@ -45,6 +52,13 @@ def parsing_for_parameters(args: argparse.Namespace, parameters:Parameters):
     if args.t is not None:
         # no sanity check, handle exception for subscribe-method
         parameters.topic = args.t
+
+    if args.u is not None:
+        parameters.user = args.u
+
+    if args.w is not None:
+        parameters.password = args.w
+
 
 def string_is_valid_ip4_address(string:str):
     parts = string.split(".")
