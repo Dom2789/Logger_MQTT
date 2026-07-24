@@ -6,7 +6,7 @@ def main():
     print("Hello from logger-mqtt!")
 
     # default values
-    parameters = Parameters(False, "logs", "logfile.txt", "192.168.178.100", 1884, "climate/office/+")
+    parameters = Parameters(False, "logs", "logfile.txt", "192.168.1.225", 1883, "climate/#")
 
     # parsing command-line arguments
     parser = argparse.ArgumentParser()
