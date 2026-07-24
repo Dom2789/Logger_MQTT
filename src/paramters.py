@@ -6,6 +6,7 @@ from os import path
 @dataclass
 class Parameters:
     file_output_active: bool
+    timestamp_active: bool
     path : str
     file_name : str
     broker_IP : str
@@ -15,6 +16,9 @@ class Parameters:
 def parsing_for_parameters(args: argparse.Namespace, parameters:Parameters):
     if args.x:
         parameters.file_output_active = True
+
+    if args.s:
+        parameters.timestamp_active = False
 
     if args.o is not None:
         # check if valid and if path or file

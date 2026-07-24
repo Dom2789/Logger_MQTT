@@ -6,6 +6,7 @@ from time import strftime
 class MQTT:
     def __init__(self, parameters: Parameters):
         self.file_output_active = parameters.file_output_active
+        self.timestamp_active = parameters.timestamp_active
         self.path = parameters.path
         self.file_name = parameters.file_name
         self.broker_IP = parameters.broker_IP
@@ -24,7 +25,12 @@ class MQTT:
     # The callback for when a PUBLISH message is received from the server.
     def on_message(self, client, userdata, msg):
         message = msg.payload.decode()
-        print(f"[{msg.topic}] {message}")
+
+        if self.timestamp_active:
+            timestamp = strftime("%H:%M:%S")
+            print(f"[{timestamp}][{msg.topic}] {message}")
+        else:
+            print(f"[{msg.topic}] {message}")
 
         if self.file_output_active:
             self.file_output(msg.topic, message)
